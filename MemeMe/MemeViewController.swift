@@ -57,18 +57,11 @@ class MemeViewController: UIViewController {
     }
     
     @IBAction func pickImageClicked(_ sender: Any) {
+        let button = sender as! UIBarButtonItem
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
-        picker.sourceType = .photoLibrary
-        self.present(picker, animated: true, completion: nil)
-    }
-    
-    @IBAction func pickImageFromCameraClicked(_ sender: Any) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        picker.sourceType = .camera
+        picker.sourceType = button.tag == 0  ? .camera : .photoLibrary
         self.present(picker, animated: true, completion: nil)
     }
     

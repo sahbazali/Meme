@@ -27,11 +27,11 @@
                                     <barButtonItem id="kLN-dF-DA7">
                                         <imageReference key="image" image="camera.fill" catalog="system" renderingMode="template"/>
                                         <connections>
-                                            <action selector="pickImageFromCameraClicked:" destination="BYZ-38-t0r" id="7r5-nh-fNz"/>
+                                            <action selector="pickImageClicked:" destination="BYZ-38-t0r" id="9dy-rr-gEh"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Dvf-ZI-1Kv"/>
-                                    <barButtonItem title="Album" id="TXx-I3-baf">
+                                    <barButtonItem tag="1" title="Album" id="TXx-I3-baf">
                                         <connections>
                                             <action selector="pickImageClicked:" destination="BYZ-38-t0r" id="Hln-0v-xVT"/>
                                         </connections>
@@ -108,7 +108,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.fill" catalog="system" width="128" height="94"/>
+        <image name="camera.fill" catalog="system" width="32" height="32"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
