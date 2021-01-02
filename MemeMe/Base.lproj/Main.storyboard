@@ -215,7 +215,7 @@
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bD7-8l-Xo2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="22x-Oe-BGJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cQQ-5m-JjL" secondAttribute="trailing" constant="10" id="2da-Lh-hks"/>
