@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MemeViewConrollerDelegate: class {
+    func memeViewControllerDidDismissed()
+}
+
 class MemeViewController: UIViewController {
 
     @IBOutlet weak var image: UIImageView!
@@ -19,6 +23,8 @@ class MemeViewController: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomToolBar: UIToolbar!
+    
+    var delegate : MemeViewConrollerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +45,6 @@ class MemeViewController: UIViewController {
     
     @IBAction func shareButtonClicked(_ sender: Any) {
         let memedImage = generateMemedImage()
-        
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activityController.completionWithItemsHandler = { (_, completed, _, _) in
             if (completed) {
@@ -50,10 +55,7 @@ class MemeViewController: UIViewController {
     }
     
     @IBAction func cancelButtonClicked(_ sender: Any) {
-        upperTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        image.image = nil
-        enableShareButton(false)
+        dismissAndNavigateSentMemes()
     }
     
     @IBAction func pickImageClicked(_ sender: Any) {
@@ -75,6 +77,7 @@ class MemeViewController: UIViewController {
     func enableShareButton(_ isEnabled: Bool) {
         shareButton.isEnabled = isEnabled
     }
+    
     func hideToolBars(_ hidden : Bool) {
         topToolBar.isHidden = hidden
         bottomToolBar.isHidden = hidden
@@ -94,8 +97,9 @@ class MemeViewController: UIViewController {
     }
     
     func save() {
-        _ = Meme(topText: upperTextField.text!, bottomText: bottomTextField.text!, originalImage: image.image!, memedImage:  generateMemedImage())
-        //TODO: It will be used next meme project
+        let savedMeme = Meme(topText: upperTextField.text!, bottomText: bottomTextField.text!, originalImage: image.image!, memedImage:  generateMemedImage())
+        Meme.sentMemes.append(savedMeme)
+        dismissAndNavigateSentMemes()
     }
     
     func generateMemedImage() -> UIImage {
@@ -106,6 +110,12 @@ class MemeViewController: UIViewController {
         UIGraphicsEndImageContext()
         hideToolBars(false)
         return memedImage
+    }
+    
+    func dismissAndNavigateSentMemes(){
+        dismiss(animated: true) {
+            self.delegate?.memeViewControllerDidDismissed()
+        }
     }
 }
 
@@ -142,8 +152,8 @@ extension MemeViewController {
     
     @objc func keyboardWillAppear(_ notification : Notification){
         if bottomTextField.isFirstResponder {
-            bottomConstraint.constant -= getKeyboardHeight(notification)
-            topConstraint.constant -= getKeyboardHeight(notification)
+            bottomConstraint.constant = -getKeyboardHeight(notification)
+            topConstraint.constant = -getKeyboardHeight(notification)
         }
     }
     @objc func keyboardWillHide(_ notification : Notification){

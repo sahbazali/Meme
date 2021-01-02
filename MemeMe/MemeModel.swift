@@ -13,3 +13,7 @@ struct Meme {
     var originalImage : UIImage
     var memedImage : UIImage
 }
+
+extension Meme {
+    static var sentMemes : [Meme] = []
+}
